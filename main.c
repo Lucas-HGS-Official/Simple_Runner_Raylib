@@ -42,23 +42,21 @@ int main(void)
 
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
 
-    Texture2D sky_bg = LoadTexture("graphics/Sky.png");        // Texture loading
+    Texture2D skyBGTexture = LoadTexture("graphics/Sky.png");        // Texture loading
+    Texture2D groungBGTexture = LoadTexture("graphics/ground.png");
 
     // Source rectangle (part of the texture to use for drawing)
-    Rectangle sourceRec = { 0.0f, 0.0f, (float)sky_bg.width, (float)sky_bg.height };
-
+    Rectangle sourceRec_skyBGTexture = { 0.0f, 0.0f, (float)skyBGTexture.width, (float)skyBGTexture.height };
     // Destination rectangle (screen rectangle where drawing part of texture)
-    Rectangle destRec = { 0.0f, 0.0f, (float)sky_bg.width, (float)sky_bg.height };
+    Rectangle destRec_skyBGTexture = { 0.0f, 0.0f, (float)skyBGTexture.width, (float)skyBGTexture.height };
+
+    Rectangle sourceRec_groungBGTexture = { 0.f, 0.f, (float)groungBGTexture.width, (float)groungBGTexture.height };
+    Rectangle destRec_groungBGTexture = { 0.f, (float)skyBGTexture.height, (float)groungBGTexture.width, (float)groungBGTexture.height };
 
     // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
-    Vector2 origin = { 0.f, 0.f };
+    Vector2 origin_skyBGTexture = { 0.f, 0.f };
+    Vector2 origin_groungBGTexture = { 0.f, 0.f };
 
-    int rotation = 0;
-
-    Rectangle rec = {
-        100,10,
-        50,60
-    };
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
@@ -82,7 +80,8 @@ int main(void)
             // destRec defines the rectangle where our texture part will fit (scaling it to fit)
             // origin defines the point of the texture used as reference for rotation and scaling
             // rotation defines the texture rotation (using origin as rotation point)
-            DrawTexturePro(sky_bg, sourceRec, destRec, origin, (float)rotation, WHITE);
+            DrawTexturePro(skyBGTexture, sourceRec_skyBGTexture, destRec_skyBGTexture, origin_skyBGTexture, 0.f, WHITE);
+            DrawTexturePro(groungBGTexture, sourceRec_groungBGTexture, destRec_groungBGTexture, origin_groungBGTexture, 0.f, WHITE);
 
             DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
