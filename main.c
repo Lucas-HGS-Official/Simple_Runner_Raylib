@@ -48,10 +48,10 @@ int main(void)
     Rectangle sourceRec = { 0.0f, 0.0f, (float)sky_bg.width, (float)sky_bg.height };
 
     // Destination rectangle (screen rectangle where drawing part of texture)
-    Rectangle destRec = { screenWidth/2.0f, screenHeight/2.0f, (float)sky_bg.width, (float)sky_bg.height };
+    Rectangle destRec = { 0.0f, 0.0f, (float)sky_bg.width, (float)sky_bg.height };
 
     // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
-    Vector2 origin = { (float)sky_bg.width/2.f, (float)sky_bg.height/2.f };
+    Vector2 origin = { 0.f, 0.f };
 
     int rotation = 0;
 
