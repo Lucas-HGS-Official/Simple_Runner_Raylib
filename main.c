@@ -36,10 +36,24 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     const int screenWidth = 800;
-    const int screenHeight = 450;
+    const int screenHeight = 400;
 
     InitWindow(screenWidth, screenHeight, "Runner - Game");
 
+    // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
+
+    Texture2D sky_bg = LoadTexture("graphics/Sky.png");        // Texture loading
+
+    // Source rectangle (part of the texture to use for drawing)
+    Rectangle sourceRec = { 0.0f, 0.0f, (float)sky_bg.width, (float)sky_bg.height };
+
+    // Destination rectangle (screen rectangle where drawing part of texture)
+    Rectangle destRec = { screenWidth/2.0f, screenHeight/2.0f, (float)sky_bg.width, (float)sky_bg.height };
+
+    // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
+    Vector2 origin = { (float)sky_bg.width/2.f, (float)sky_bg.height/2.f };
+
+    int rotation = 0;
 
     Rectangle rec = {
         100,10,
@@ -63,7 +77,12 @@ int main(void)
 
             ClearBackground(RAYWHITE);
 
-            DrawRectangleRec(rec, RED);
+            // NOTE: Using DrawTexturePro() we can easily rotate and scale the part of the texture we draw
+            // sourceRec defines the part of the texture we use for drawing
+            // destRec defines the rectangle where our texture part will fit (scaling it to fit)
+            // origin defines the point of the texture used as reference for rotation and scaling
+            // rotation defines the texture rotation (using origin as rotation point)
+            DrawTexturePro(sky_bg, sourceRec, destRec, origin, (float)rotation, WHITE);
 
             DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
