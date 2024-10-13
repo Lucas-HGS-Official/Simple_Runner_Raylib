@@ -28,6 +28,8 @@
 
 #include "raylib.h"
 
+#define NULL (void *)0
+
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
@@ -58,6 +60,10 @@ int main(void)
     Vector2 origin_groungBGTexture = { 0.f, 0.f };
 
 
+    Font testFont = LoadFont("font/Pixeltype.ttf");
+    Vector2 fontPos = {190, 200};
+
+
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
@@ -83,7 +89,7 @@ int main(void)
             DrawTexturePro(skyBGTexture, sourceRec_skyBGTexture, destRec_skyBGTexture, origin_skyBGTexture, 0.f, WHITE);
             DrawTexturePro(groungBGTexture, sourceRec_groungBGTexture, destRec_groungBGTexture, origin_groungBGTexture, 0.f, WHITE);
 
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+            DrawTextEx(testFont, "Congrats! You created your first window!", fontPos, 20, 1, LIGHTGRAY);
 
         EndDrawing();
         //----------------------------------------------------------------------------------
@@ -91,6 +97,8 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
+    UnloadTexture(skyBGTexture);
+    UnloadTexture(groungBGTexture);
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
