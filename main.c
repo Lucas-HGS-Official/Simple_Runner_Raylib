@@ -59,12 +59,12 @@ int main(void)
     Rectangle destRec_groungBGTexture = { 0.f, (float)skyBGTexture.height, (float)groungBGTexture.width, (float)groungBGTexture.height };
 
     Rectangle sourceRec_snail = { 0.f, 0.f, (float)snail.width, (float)snail.height };
-    Rectangle destRec_snail = { snailXPos, (float)(destRec_groungBGTexture.y - snail.height), (float)snail.width, (float)snail.height };    
+    Rectangle destRec_snail = { snailXPos, (float)destRec_groungBGTexture.y, (float)snail.width, (float)snail.height };    
 
     // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
     Vector2 origin_skyBGTexture = { 0.f, 0.f };
     Vector2 origin_groungBGTexture = { 0.f, 0.f };
-    Vector2 origin_snail = {0.f, 0.f};
+    Vector2 origin_snail = { (float)snail.width/2, (float)snail.height};
 
 
     Font testFont = LoadFont("font/Pixeltype.ttf");
