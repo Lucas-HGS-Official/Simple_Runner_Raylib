@@ -1,5 +1,5 @@
 default:
-	cc -o game main.c -lraylib -lpthread
+	cc game.c -lraylib -lGL -lm -lpthread -ldl -lrt
 
 clean:
 	rm -f game
