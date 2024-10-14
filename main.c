@@ -22,7 +22,7 @@
 *   
 *   The simplest possible build command
 *   
-*   cc game.c -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+*   cc game.c -lraylib -lGL -lm -lpthread -ldl -lrt
 *
 ********************************************************************************************/
 
@@ -46,6 +46,9 @@ int main(void)
 
     Texture2D skyBGTexture = LoadTexture("graphics/Sky.png");        // Texture loading
     Texture2D groungBGTexture = LoadTexture("graphics/ground.png");
+    Texture2D snail = LoadTexture("graphics/snail/snail1.png");
+
+    float snailXPos = 600.f;
 
     // Source rectangle (part of the texture to use for drawing)
     Rectangle sourceRec_skyBGTexture = { 0.0f, 0.0f, (float)skyBGTexture.width, (float)skyBGTexture.height };
@@ -55,9 +58,13 @@ int main(void)
     Rectangle sourceRec_groungBGTexture = { 0.f, 0.f, (float)groungBGTexture.width, (float)groungBGTexture.height };
     Rectangle destRec_groungBGTexture = { 0.f, (float)skyBGTexture.height, (float)groungBGTexture.width, (float)groungBGTexture.height };
 
+    Rectangle sourceRec_snail = { 0.f, 0.f, (float)snail.width, (float)snail.height };
+    Rectangle destRec_snail = { snailXPos, (float)(destRec_groungBGTexture.y - snail.height), (float)snail.width, (float)snail.height };    
+
     // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
     Vector2 origin_skyBGTexture = { 0.f, 0.f };
     Vector2 origin_groungBGTexture = { 0.f, 0.f };
+    Vector2 origin_snail = {0.f, 0.f};
 
 
     Font testFont = LoadFont("font/Pixeltype.ttf");
@@ -74,7 +81,12 @@ int main(void)
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
+        destRec_snail.x = snailXPos;
+        snailXPos -= 4.f;
 
+        if ((snailXPos + snail.width) < 0) {
+            snailXPos = screenWidth;
+        }
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -88,6 +100,8 @@ int main(void)
             // rotation defines the texture rotation (using origin as rotation point)
             DrawTexturePro(skyBGTexture, sourceRec_skyBGTexture, destRec_skyBGTexture, origin_skyBGTexture, 0.f, WHITE);
             DrawTexturePro(groungBGTexture, sourceRec_groungBGTexture, destRec_groungBGTexture, origin_groungBGTexture, 0.f, WHITE);
+            DrawTexturePro(snail, sourceRec_snail, destRec_snail, origin_snail, 0.f, WHITE);
+
 
             DrawTextEx(testFont, "Congrats! You created your first window!", fontPos, 20, 1, LIGHTGRAY);
 
