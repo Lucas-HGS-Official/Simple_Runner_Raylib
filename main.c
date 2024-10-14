@@ -113,6 +113,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
     UnloadTexture(skyBGTexture);
     UnloadTexture(groungBGTexture);
+    UnloadTexture(snail);
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
