@@ -107,8 +107,11 @@ int main(void)
             DrawTexturePro(snail, sourceRec_snail, destRec_snail, origin_snail, 0.f, WHITE);
             DrawTexturePro(player, sourceRec_player, destRec_player, origin_player, 0.f, WHITE);
 
+            if (CheckCollisionRecs(destRec_player, destRec_snail)) {
+                DrawTextEx(testFont, "Congrats! You created your first window!", fontPos, 20, 1, LIGHTGRAY);
+            }
 
-            DrawTextEx(testFont, "Congrats! You created your first window!", fontPos, 20, 1, LIGHTGRAY);
+
 
         EndDrawing();
         //----------------------------------------------------------------------------------
