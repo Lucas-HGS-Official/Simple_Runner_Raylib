@@ -47,6 +47,7 @@ int main(void)
     Texture2D skyBGTexture = LoadTexture("graphics/Sky.png");        // Texture loading
     Texture2D groungBGTexture = LoadTexture("graphics/ground.png");
     Texture2D snail = LoadTexture("graphics/snail/snail1.png");
+    Texture2D player = LoadTexture("graphics/Player/player_walk_1.png");
 
     float snailXPos = 600.f;
 
@@ -54,17 +55,20 @@ int main(void)
     Rectangle sourceRec_skyBGTexture = { 0.0f, 0.0f, (float)skyBGTexture.width, (float)skyBGTexture.height };
     // Destination rectangle (screen rectangle where drawing part of texture)
     Rectangle destRec_skyBGTexture = { 0.0f, 0.0f, (float)skyBGTexture.width, (float)skyBGTexture.height };
+    // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
+    Vector2 origin_skyBGTexture = { 0.f, 0.f };
 
     Rectangle sourceRec_groungBGTexture = { 0.f, 0.f, (float)groungBGTexture.width, (float)groungBGTexture.height };
     Rectangle destRec_groungBGTexture = { 0.f, (float)skyBGTexture.height, (float)groungBGTexture.width, (float)groungBGTexture.height };
+    Vector2 origin_groungBGTexture = { 0.f, 0.f };
 
     Rectangle sourceRec_snail = { 0.f, 0.f, (float)snail.width, (float)snail.height };
-    Rectangle destRec_snail = { snailXPos, (float)destRec_groungBGTexture.y, (float)snail.width, (float)snail.height };    
-
-    // Origin of the texture (rotation/scale point), it's relative to destination rectangle size
-    Vector2 origin_skyBGTexture = { 0.f, 0.f };
-    Vector2 origin_groungBGTexture = { 0.f, 0.f };
+    Rectangle destRec_snail = { snailXPos, (float)destRec_groungBGTexture.y, (float)snail.width, (float)snail.height };
     Vector2 origin_snail = { (float)snail.width/2, (float)snail.height};
+
+    Rectangle sourceRec_player = { 0.f, 0.f, (float)player.width, (float)player.height };
+    Rectangle destRec_player = { 30.f, (float)destRec_groungBGTexture.y, (float)player.width, (float)player.height };
+    Vector2 origin_player = { (float)player.width/2, (float)player.height };
 
 
     Font testFont = LoadFont("font/Pixeltype.ttf");
@@ -101,6 +105,7 @@ int main(void)
             DrawTexturePro(skyBGTexture, sourceRec_skyBGTexture, destRec_skyBGTexture, origin_skyBGTexture, 0.f, WHITE);
             DrawTexturePro(groungBGTexture, sourceRec_groungBGTexture, destRec_groungBGTexture, origin_groungBGTexture, 0.f, WHITE);
             DrawTexturePro(snail, sourceRec_snail, destRec_snail, origin_snail, 0.f, WHITE);
+            DrawTexturePro(player, sourceRec_player, destRec_player, origin_player, 0.f, WHITE);
 
 
             DrawTextEx(testFont, "Congrats! You created your first window!", fontPos, 20, 1, LIGHTGRAY);
@@ -114,6 +119,7 @@ int main(void)
     UnloadTexture(skyBGTexture);
     UnloadTexture(groungBGTexture);
     UnloadTexture(snail);
+    UnloadTexture(player);
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
