@@ -26,9 +26,10 @@
 *
 ********************************************************************************************/
 
+#include <stdio.h>
 #include "raylib.h"
 
-#define NULL (void *)0
+//#define NULL (void *)0
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -63,16 +64,21 @@ int main(void)
     Vector2 origin_groungBGTexture = { 0.f, 0.f };
 
     Rectangle sourceRec_snail = { 0.f, 0.f, (float)snail.width, (float)snail.height };
-    Rectangle destRec_snail = { snailXPos, (float)destRec_groungBGTexture.y, (float)snail.width, (float)snail.height };
-    Vector2 origin_snail = { (float)snail.width/2, (float)snail.height};
+    Rectangle destRec_snail = { snailXPos, (float)(destRec_groungBGTexture.y - snail.height), (float)snail.width, (float)snail.height };
+    Vector2 origin_snail = { 0.f, 0.f };
 
     Rectangle sourceRec_player = { 0.f, 0.f, (float)player.width, (float)player.height };
-    Rectangle destRec_player = { 30.f, (float)destRec_groungBGTexture.y, (float)player.width, (float)player.height };
-    Vector2 origin_player = { (float)player.width/2, (float)player.height };
+    Rectangle destRec_player = { 30.f, ((float)destRec_groungBGTexture.y - player.height), (float)player.width, (float)player.height };
+    //Vector2 origin_player = { (float)player.width/2, (float)player.height };
+    Vector2 origin_player = { 0.f, 0.f };
+
 
 
     Font testFont = LoadFont("font/Pixeltype.ttf");
     Vector2 fontPos = {190, 200};
+
+    bool collision = false;
+    Vector2 mousePos = {0.f, 0.f};
 
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
@@ -85,11 +91,20 @@ int main(void)
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
         //----------------------------------------------------------------------------------
+        collision = false;
+        mousePos = GetMousePosition();
+
         destRec_snail.x = snailXPos;
         snailXPos -= 4.f;
 
         if ((snailXPos + snail.width) < 0) {
             snailXPos = screenWidth;
+        }
+
+        if (CheckCollisionPointRec(mousePos, destRec_player)) {
+            collision = true;
+        } else if (CheckCollisionRecs(destRec_player, destRec_snail)) {
+            collision = true;
         }
         // Draw
         //----------------------------------------------------------------------------------
@@ -107,7 +122,7 @@ int main(void)
             DrawTexturePro(snail, sourceRec_snail, destRec_snail, origin_snail, 0.f, WHITE);
             DrawTexturePro(player, sourceRec_player, destRec_player, origin_player, 0.f, WHITE);
 
-            if (CheckCollisionRecs(destRec_player, destRec_snail)) {
+            if (collision) {
                 DrawTextEx(testFont, "Congrats! You created your first window!", fontPos, 20, 1, LIGHTGRAY);
             }
 
