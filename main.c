@@ -75,7 +75,8 @@ int main(void)
 
 
     Font testFont = LoadFont("font/Pixeltype.ttf");
-    Vector2 fontPos = {190, 200};
+    char * scoreText = "Congrats! You created your first window!";
+    Vector2 fontPos = {screenWidth/2.f - MeasureTextEx(testFont, scoreText, 20.f, 1.f).x / 2.f, 50};
 
     bool collision = false;
     Vector2 mousePos = {0.f, 0.f};
@@ -102,7 +103,9 @@ int main(void)
         }
 
         if (CheckCollisionPointRec(mousePos, destRec_player)) {
-            collision = true;
+            if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+                collision = true;
+            }
         } else if (CheckCollisionRecs(destRec_player, destRec_snail)) {
             collision = true;
         }
@@ -123,7 +126,7 @@ int main(void)
             DrawTexturePro(player, sourceRec_player, destRec_player, origin_player, 0.f, WHITE);
 
             if (collision) {
-                DrawTextEx(testFont, "Congrats! You created your first window!", fontPos, 20, 1, LIGHTGRAY);
+                DrawTextEx(testFont, "Congrats! You created your first window!", fontPos, 20.f, 1.f, LIGHTGRAY);
             }
 
 
