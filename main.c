@@ -29,6 +29,9 @@
 #include <stdio.h>
 #include "raylib.h"
 
+#define CUTE_TILED_IMPLEMENTATION
+#include "cute_tiled.h"
+
 //#define NULL (void *)0
 
 //------------------------------------------------------------------------------------
@@ -42,6 +45,8 @@ int main(void)
     const int screenHeight = 400;
 
     InitWindow(screenWidth, screenHeight, "Runner - Game");
+
+    cute_tiled_map_t* map = cute_tiled_load_map_from_file("test_cute_tiled/test_cute_tiled.json", NULL);
 
     // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
 
